@@ -7,7 +7,7 @@ import { expandLexicalTerms, tokenizeForLexicalSearch } from "../lib/lexical.js"
 
 const csvPath = path.join(process.cwd(), "medium-english-50mb.csv");
 const outPath = path.join(process.cwd(), "data", "lexical-index.json");
-const maxPostingsPerTerm = 1000;
+const maxPostingsPerTerm = 300;
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
@@ -29,10 +29,10 @@ for (let articleIndex = 0; articleIndex < records.length; articleIndex++) {
       records[articleIndex].title,
       records[articleIndex].tags
     ].filter(Boolean).join(" ");
-    const terms = [
+    const terms = [...new Set([
       ...expandLexicalTerms(tokenizeForLexicalSearch(chunks[chunkIndex])),
       ...expandLexicalTerms(tokenizeForLexicalSearch(metadataText), { includeMetadataBoost: true })
-    ];
+    ])];
 
     for (const term of terms) {
       postings[term] ||= [];
