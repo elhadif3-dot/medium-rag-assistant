@@ -1,0 +1,27 @@
+node_modules/
+.npm-cache/
+.next/
+out/
+dist/
+
+# Secrets
+.env
+.env.*
+!.env.example
+API.env
+
+# Generated ingestion artifacts
+data/chunks.jsonl
+data/ingest-state.json
+extracted/
+
+# Course/source files kept local
+*.pdf
+*.csv
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

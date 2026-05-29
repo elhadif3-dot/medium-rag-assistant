@@ -1,0 +1,36 @@
+{
+  "name": "medium-rag-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check-env": "node scripts/check-env.js",
+    "setup-pinecone": "node scripts/setup-pinecone.js",
+    "pinecone-stats": "node scripts/pinecone-stats.js",
+    "check-ingest-continuity": "node scripts/check-ingest-continuity.js",
+    "check-vector-coverage": "node scripts/check-vector-coverage.js",
+    "fetch-article": "node scripts/fetch-article.js",
+    "search-debug": "node scripts/search-debug.js",
+    "repair-vectors": "node scripts/repair-vectors.js",
+    "lexical-debug": "node scripts/lexical-debug.js",
+    "build-lexical-index": "node scripts/build-lexical-index.js",
+    "estimate-cost": "node scripts/estimate-cost.js",
+    "ask": "node scripts/ask.js",
+    "ingest": "node scripts/ingest.js"
+  },
+  "dependencies": {
+    "@pinecone-database/pinecone": "^6.1.2",
+    "csv-parse": "^5.6.0",
+    "next": "^16.0.7",
+    "openai": "^6.9.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.7"
+  }
+}
