@@ -7,7 +7,8 @@ import { expandLexicalTerms, tokenizeForLexicalSearch } from "../lib/lexical.js"
 
 const csvPath = path.join(process.cwd(), "medium-english-50mb.csv");
 const outPath = path.join(process.cwd(), "data", "lexical-index.json");
-const maxPostingsPerTerm = 300;
+const maxPostingsPerTerm = 100;
+const maxBodyTermFrequency = 100;
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
@@ -17,6 +18,8 @@ const records = parse(fs.readFileSync(csvPath, "utf8"), {
 });
 
 const postings = Object.create(null);
+const chunksForIndex = [];
+const bodyTermFrequency = Object.create(null);
 let chunkCount = 0;
 
 for (let articleIndex = 0; articleIndex < records.length; articleIndex++) {
@@ -29,19 +32,36 @@ for (let articleIndex = 0; articleIndex < records.length; articleIndex++) {
       records[articleIndex].title,
       records[articleIndex].tags
     ].filter(Boolean).join(" ");
-    const terms = [...new Set([
-      ...expandLexicalTerms(tokenizeForLexicalSearch(chunks[chunkIndex])),
-      ...expandLexicalTerms(tokenizeForLexicalSearch(metadataText), { includeMetadataBoost: true })
-    ])];
+    const bodyTerms = expandLexicalTerms(tokenizeForLexicalSearch(chunks[chunkIndex]));
+    const metadataTerms = expandLexicalTerms(tokenizeForLexicalSearch(metadataText), { includeMetadataBoost: true });
 
-    for (const term of terms) {
-      postings[term] ||= [];
-      if (postings[term].length < maxPostingsPerTerm) {
-        postings[term].push(id);
-      }
+    chunksForIndex.push({
+      id,
+      bodyTerms: [...new Set(bodyTerms)],
+      metadataTerms: [...new Set(metadataTerms)]
+    });
+
+    for (const term of new Set(bodyTerms)) {
+      bodyTermFrequency[term] = (bodyTermFrequency[term] || 0) + 1;
     }
 
     chunkCount++;
+  }
+}
+
+for (const chunk of chunksForIndex) {
+  const terms = [...new Set([
+    ...chunk.metadataTerms,
+    ...chunk.bodyTerms.filter((term) => {
+      return (bodyTermFrequency[term] || 0) <= maxBodyTermFrequency;
+    })
+  ])];
+
+  for (const term of terms) {
+    postings[term] ||= [];
+    if (postings[term].length < maxPostingsPerTerm) {
+      postings[term].push(chunk.id);
+    }
   }
 }
 
@@ -51,6 +71,7 @@ fs.writeFileSync(outPath, JSON.stringify({
   overlap_ratio: RAG_CONFIG.overlap_ratio,
   chunks: chunkCount,
   max_postings_per_term: maxPostingsPerTerm,
+  max_body_term_frequency: maxBodyTermFrequency,
   postings
 }));
 

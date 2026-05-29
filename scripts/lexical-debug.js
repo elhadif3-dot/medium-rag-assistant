@@ -1,5 +1,7 @@
 import { createPineconeIndex } from "../lib/pinecone.js";
-import { getLexicalCandidates, tokenizeForLexicalSearch, expandLexicalTerms } from "../lib/lexical.js";
+import fs from "node:fs";
+import path from "node:path";
+import { getLexicalCandidatesFromIndex, tokenizeForLexicalSearch, expandLexicalTerms } from "../lib/lexical.js";
 import { loadLocalEnv } from "./load-local-env.js";
 
 loadLocalEnv();
@@ -9,7 +11,9 @@ if (!question) {
   throw new Error("Usage: npm run lexical-debug -- \"question\"");
 }
 
-const candidates = getLexicalCandidates(question, 12);
+const indexPath = path.join(process.cwd(), "data", "lexical-index.json");
+const lexicalIndex = JSON.parse(fs.readFileSync(indexPath, "utf8"));
+const candidates = getLexicalCandidatesFromIndex(lexicalIndex, question, 12);
 const index = createPineconeIndex();
 const result = await index.fetch(candidates.map((candidate) => candidate.id));
 

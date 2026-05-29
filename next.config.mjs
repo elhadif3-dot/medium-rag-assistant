@@ -1,7 +1,3 @@
-const nextConfig = {
-  outputFileTracingIncludes: {
-    "/api/prompt": ["./data/lexical-index.json"]
-  }
-};
+const nextConfig = {};
 
 export default nextConfig;

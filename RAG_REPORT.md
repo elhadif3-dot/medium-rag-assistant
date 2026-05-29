@@ -55,7 +55,7 @@ To avoid relying on the model's background knowledge, the runtime prompt include
 ## Retrieval Design
 
 - Primary retrieval: Pinecone dense vector search using `4UHRUIN-text-embedding-3-small`.
-- Hybrid support: a compact local lexical index maps important terms to Pinecone chunk IDs. This helps exact-phrase questions such as `bubonic plague` without re-embedding the dataset.
+- Hybrid support: a compact lexical index maps important terms to Pinecone chunk IDs. In deployment it is served as a static asset (`public/lexical-index.json`). This helps exact-phrase questions such as `bubonic plague` without re-embedding the dataset.
 - Candidate fetching: lexical candidates are fetched from Pinecone, so final context still comes from the Pinecone-stored dataset chunks.
 - Context filtering:
   - Minimum relevance score: `0.35`.

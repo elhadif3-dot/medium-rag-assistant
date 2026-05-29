@@ -113,4 +113,4 @@ The project follows the assignment instruction to avoid embedding the same data 
 - Pinecone dimension: 1,536
 - Vector coverage check: 0 missing chunk IDs
 
-The runtime uses Pinecone dense retrieval plus a compact generated lexical index at `data/lexical-index.json` for exact-term candidate recall. The lexical candidates are still fetched from Pinecone before being sent to the model.
+The runtime uses Pinecone dense retrieval plus a compact generated lexical index exposed as `public/lexical-index.json` for exact-term candidate recall. The lexical candidates are still fetched from Pinecone before being sent to the model.
