@@ -1,0 +1,108 @@
+[
+  {
+    "id": "precise_marketing_introverts",
+    "category": "precise_fact_retrieval",
+    "question": "Find an article that reframes marketing as a conversation with readers, aimed at writers who find self-promotion uncomfortable. Provide the title and author.",
+    "checks": {
+      "responseIncludesAll": ["A Marketing Guide for Introverts", "Shaunta Grimes"],
+      "contextIncludesTitle": "A Marketing Guide for Introverts",
+      "maxContextItems": 4
+    }
+  },
+  {
+    "id": "precise_manchurian_plague_masks",
+    "category": "precise_fact_retrieval",
+    "question": "Find an article that uses the Manchurian Plague of 1910 to argue for masks or personal protective equipment. Provide the title and author.",
+    "checks": {
+      "responseIncludesAll": ["The Manchurian Plague", "Ben Kageyama"],
+      "contextIncludesTitle": "The Manchurian Plague",
+      "maxContextItems": 4
+    }
+  },
+  {
+    "id": "listing_education_three_titles",
+    "category": "multi_result_topic_listing",
+    "question": "List exactly 3 articles about education. Return only the titles.",
+    "checks": {
+      "exactNonEmptyResponseLines": 3,
+      "onlyTitleLines": true,
+      "distinctContextArticlesAtLeast": 3
+    }
+  },
+  {
+    "id": "listing_ai_two_titles",
+    "category": "multi_result_topic_listing",
+    "question": "Show exactly 2 articles about artificial intelligence. Return only the titles.",
+    "checks": {
+      "exactNonEmptyResponseLines": 2,
+      "onlyTitleLines": true,
+      "distinctContextArticlesAtLeast": 2
+    }
+  },
+  {
+    "id": "summary_bubonic_plague_innovation",
+    "category": "key_idea_summary_extraction",
+    "question": "Find an article that argues past pandemics such as the bubonic plague can spur innovation and recovery, and summarise its central argument.",
+    "checks": {
+      "responseIncludesAll": ["Rebounding From The Pandemic", "bubonic plague"],
+      "contextIncludesTitle": "Rebounding From The Pandemic"
+    }
+  },
+  {
+    "id": "summary_headline_analyzers",
+    "category": "key_idea_summary_extraction",
+    "question": "Find an article that compares headline analyzer tools for writers, and summarise its main conclusion.",
+    "checks": {
+      "responseIncludesAny": ["Are Headline Analyzer Tools Really Helpful for Writers", "headline analyzer"],
+      "contextIncludesTitle": "Are Headline Analyzer Tools Really Helpful for Writers"
+    }
+  },
+  {
+    "id": "recommend_habits_sticky",
+    "category": "recommendation_with_evidence",
+    "question": "I want practical, beginner-friendly advice on building habits that actually stick. Which article would you recommend, and why?",
+    "checks": {
+      "responseIncludesAny": ["The Magic Key to Making Habits Sticky", "Building and Breaking Habits"],
+      "responseIncludesAnyEvidence": ["time", "action", "stack", "habit"],
+      "contextIncludesAnyTitle": ["The Magic Key to Making Habits Sticky", "Building and Breaking Habits"]
+    }
+  },
+  {
+    "id": "recommend_medium_images",
+    "category": "recommendation_with_evidence",
+    "question": "I write on Medium and want practical advice for making my article images stand out. Which article would you recommend, and why?",
+    "checks": {
+      "responseIncludesAny": ["How can I make my article better?", "Increase Your Reach by Differentiating Your Images From the Crowd", "image", "images"],
+      "contextIncludesAnyTitle": ["How can I make my article better?", "Increase Your Reach by Differentiating Your Images From the Crowd", "The Innovation Submission and Design Guide"]
+    }
+  },
+  {
+    "id": "metadata_author_lookup",
+    "category": "precise_fact_retrieval",
+    "question": "Who wrote the article titled A Marketing Guide for Introverts?",
+    "checks": {
+      "responseIncludesAll": ["Shaunta Grimes"],
+      "contextIncludesTitle": "A Marketing Guide for Introverts"
+    }
+  },
+  {
+    "id": "unknown_external_world_cup",
+    "category": "external_knowledge_refusal",
+    "question": "Who won the 2022 FIFA World Cup?",
+    "checks": {
+      "expectUnknown": true,
+      "maxContextItems": 1
+    }
+  },
+  {
+    "id": "compound_three_assignment_tasks",
+    "category": "multi_part_edge_case",
+    "question": "Find an article that reframes marketing as a conversation with readers, aimed at writers who find self-promotion uncomfortable. Provide the title and author, and List exactly 3 articles about education. Return only the titles, and Find an article that argues past pandemics such as the bubonic plague can spur innovation and recovery, and summarise its central argument.",
+    "checks": {
+      "responseIncludesAll": ["A Marketing Guide for Introverts", "Shaunta Grimes", "Rebounding From The Pandemic"],
+      "contextIncludesAllTitles": ["A Marketing Guide for Introverts", "Rebounding From The Pandemic"],
+      "distinctContextArticlesAtLeast": 5,
+      "maxContextItems": 8
+    }
+  }
+]

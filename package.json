@@ -20,6 +20,7 @@
     "estimate-cost": "node scripts/estimate-cost.js",
     "ask": "node scripts/ask.js",
     "public-smoke-test": "node scripts/public-smoke-test.js",
+    "teacher-like-test": "node scripts/run-teacher-like-tests.js",
     "ingest": "node scripts/ingest.js"
   },
   "dependencies": {
