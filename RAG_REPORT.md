@@ -117,8 +117,11 @@ Full-corpus validation was run after ingesting all 7,682 articles.
   - Returned `Rebounding From The Pandemic... with AI` by Massimiliano Versace and summarized the Renaissance / AI transformation argument from retrieved context.
 - Recommendation test: `"I want practical, beginner-friendly advice on building habits that actually stick. Which article would you recommend, and why?"`
   - Returned `The Magic Key to Making Habits Sticky` by Shaunta Grimes with evidence from the retrieved passage.
+- Multi-part edge-case test: a single request combining precise retrieval, exactly 3 education titles, and the pandemic innovation summary.
+  - Returned all three requested sub-answers using a capped combined context of 8 chunks.
 - Unknown/out-of-corpus test: `"Who won the 2022 FIFA World Cup?"`
   - Returned the required refusal sentence with 0 context chunks after relevance filtering.
+- Public teacher-like validation suite: `11/11` tests passed on the deployed Vercel URL.
 
 The portal should be used as the source of truth for exact spend. Based on local token accounting and observed usage, the work remains comfortably below the 5 USD assignment limit.
 

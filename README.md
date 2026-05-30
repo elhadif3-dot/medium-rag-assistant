@@ -88,6 +88,14 @@ Paid local RAG test:
 npm run ask -- "List exactly 3 articles about writing. Return only the titles."
 ```
 
+Public teacher-like validation suite:
+
+```bash
+npm run teacher-like-test -- https://medium-rag-assistant-theta.vercel.app
+```
+
+The suite checks the required API shape and representative questions for precise retrieval, multi-result listing, summary extraction, recommendations, refusal for external knowledge, and a multi-part edge case.
+
 ## Ingestion
 
 Place `medium-english-50mb.csv` in the project root before ingestion.
