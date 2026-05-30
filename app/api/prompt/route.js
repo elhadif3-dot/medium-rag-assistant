@@ -12,7 +12,10 @@ export async function POST(request) {
       return NextResponse.json({ error: "Missing question" }, { status: 400 });
     }
 
-    const result = await answerQuestion(question);
+    const host = request.headers.get("host") || "";
+    const protocol = request.headers.get("x-forwarded-proto") || "https";
+    const siteUrl = host ? `${protocol}://${host}` : "";
+    const result = await answerQuestion(question, { siteUrl });
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(

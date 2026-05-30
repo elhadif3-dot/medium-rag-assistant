@@ -19,6 +19,7 @@
     "build-lexical-index": "node scripts/build-lexical-index.js",
     "estimate-cost": "node scripts/estimate-cost.js",
     "ask": "node scripts/ask.js",
+    "public-smoke-test": "node scripts/public-smoke-test.js",
     "ingest": "node scripts/ingest.js"
   },
   "dependencies": {
