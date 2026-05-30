@@ -8,12 +8,42 @@ const examples = [
   "I want practical, beginner-friendly advice on building habits that actually stick. Which article would you recommend, and why?"
 ];
 
+function groupContextByArticle(items) {
+  const groups = new Map();
+
+  for (const item of items) {
+    const key = `${item.article_id || ""}:${item.title || ""}`;
+    const score = Number(item.score || 0);
+    const existing = groups.get(key);
+
+    if (!existing) {
+      groups.set(key, {
+        article_id: item.article_id,
+        title: item.title,
+        chunk: item.chunk,
+        score,
+        chunkCount: 1
+      });
+      continue;
+    }
+
+    existing.chunkCount += 1;
+    if (score > existing.score) {
+      existing.score = score;
+      existing.chunk = item.chunk;
+    }
+  }
+
+  return [...groups.values()];
+}
+
 export default function Home() {
   const [question, setQuestion] = useState(examples[0]);
   const [response, setResponse] = useState("");
   const [context, setContext] = useState([]);
   const [status, setStatus] = useState("Ready");
   const [loading, setLoading] = useState(false);
+  const groupedContext = groupContextByArticle(context);
 
   async function submitQuestion(event) {
     event.preventDefault();
@@ -97,11 +127,12 @@ export default function Home() {
               <p className="subtitle">Context chunks will appear after a query.</p>
             ) : (
               <div className="context-list">
-                {context.map((item, index) => (
-                  <div className="context-item" key={`${item.article_id}-${index}`}>
+                {groupedContext.map((item) => (
+                  <div className="context-item" key={`${item.article_id}-${item.title}`}>
                     <div className="context-title">{item.title}</div>
                     <div className="context-meta">
                       article_id {item.article_id} · score {Number(item.score || 0).toFixed(4)}
+                      {item.chunkCount > 1 ? ` | ${item.chunkCount} chunks` : ""}
                     </div>
                     <div className="context-chunk">{item.chunk}</div>
                   </div>
