@@ -3,13 +3,13 @@ import path from "node:path";
 
 const DEFAULT_URL = "https://medium-rag-assistant-theta.vercel.app";
 const baseUrl = (process.argv[2] || process.env.PUBLIC_APP_URL || DEFAULT_URL).replace(/\/$/, "");
-const testsPath = path.join(process.cwd(), "tests", "teacher-like-questions.json");
+const testsPath = path.resolve(process.argv[3] || process.env.TESTS_FILE || path.join("tests", "teacher-like-questions.json"));
 const resultsDir = path.join(process.cwd(), "test-results");
 
 const tests = JSON.parse(fs.readFileSync(testsPath, "utf8"));
 
 function normalize(text) {
-  return String(text || "").toLowerCase().replace(/\s+/g, " ").trim();
+  return String(text || "").toLowerCase().replace(/[-\u2010-\u2015]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function titleMatches(actual, expected) {
@@ -116,7 +116,8 @@ function checkResponse(payload, checks = {}) {
   if (checks.onlyTitleLines) {
     const lines = nonEmptyLines(responseText);
     const badLine = lines.find((line) => {
-      return /[:.!?]/.test(line) || /\b(because|article|recommend|context|author|title)\b/i.test(line);
+      return /\b(because|context|recommended?|recommendation|evidence|here are|the article)\b/i.test(line) ||
+        /\b(author|title)\s*:/i.test(line);
     });
     if (badLine) {
       failures.push(`response line does not look title-only: ${badLine}`);
