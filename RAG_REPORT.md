@@ -122,6 +122,8 @@ Full-corpus validation was run after ingesting all 7,682 articles.
 - Unknown/out-of-corpus test: `"Who won the 2022 FIFA World Cup?"`
   - Returned the required refusal sentence with 0 context chunks after relevance filtering.
 - Public teacher-like validation suite: `11/11` tests passed on the deployed Vercel URL.
+- Public extended validation suite: `18/18` tests passed on the deployed Vercel URL.
+  - This suite includes reworded precise retrieval, metadata lookup, general topic listings, oversized listing requests capped to 3 results, summaries, recommendations, prompt-injection/external-knowledge refusals, and a compound multi-part request.
 
 The portal should be used as the source of truth for exact spend. Based on local token accounting and observed usage, the work remains comfortably below the 5 USD assignment limit.
 

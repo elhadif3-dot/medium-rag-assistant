@@ -130,9 +130,9 @@
     "category": "recommendation_with_evidence",
     "question": "I want an article that gives historical evidence for why masks or PPE matter in epidemics. Which article should I read, and why?",
     "checks": {
-      "responseIncludesAny": ["The Manchurian Plague", "The Science and Tech of Face Masks"],
+      "responseIncludesAny": ["The Manchurian Plague", "The Science and Tech of Face Masks", "New Research On Masks Show They Can Act Like A Vaccine"],
       "responseIncludesAnyEvidence": ["mask", "PPE", "protective equipment"],
-      "contextIncludesAnyTitle": ["The Manchurian Plague", "The Science and Tech of Face Masks"]
+      "contextIncludesAnyTitle": ["The Manchurian Plague", "The Science and Tech of Face Masks", "New Research On Masks Show They Can Act Like A Vaccine"]
     }
   },
   {

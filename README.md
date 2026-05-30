@@ -92,6 +92,7 @@ Public teacher-like validation suite:
 
 ```bash
 npm run teacher-like-test -- https://medium-rag-assistant-theta.vercel.app
+npm run teacher-like-test -- https://medium-rag-assistant-theta.vercel.app tests/teacher-extended-questions.json
 ```
 
 The suite checks the required API shape and representative questions for precise retrieval, multi-result listing, summary extraction, recommendations, refusal for external knowledge, and a multi-part edge case.
