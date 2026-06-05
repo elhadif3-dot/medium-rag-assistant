@@ -3,9 +3,10 @@
 import { useState } from "react";
 
 const examples = [
-  "Find an article that reframes marketing as a conversation with readers, aimed at writers who find self-promotion uncomfortable. Provide the title and author.",
   "List exactly 3 articles about education. Return only the titles.",
-  "I want practical, beginner-friendly advice on building habits that actually stick. Which article would you recommend, and why?"
+  "Find an article that argues past pandemics such as the bubonic plague can spur innovation and recovery, and summarise its central argument.",
+  "I want practical, beginner-friendly advice on building habits that actually stick. Which article would you recommend, and why?",
+  "Find an article that reframes marketing as a conversation with readers, aimed at writers who find self-promotion uncomfortable. Provide the title and author."
 ];
 
 function groupContextByArticle(items) {
@@ -38,7 +39,7 @@ function groupContextByArticle(items) {
 }
 
 export default function Home() {
-  const [question, setQuestion] = useState(examples[0]);
+  const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
   const [context, setContext] = useState([]);
   const [status, setStatus] = useState("Ready");
